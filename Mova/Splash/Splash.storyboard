@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Splash View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="SplashViewController" id="Y6W-OH-hqX" customClass="SplashViewController" customModule="Mova" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mova-icon" translatesAutoresizingMaskIntoConstraints="NO" id="e3O-If-htQ">
+                                <rect key="frame" x="116.66666666666669" y="346" width="160" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="AW3-9B-FvW"/>
+                                    <constraint firstAttribute="width" constant="160" id="aau-js-7wP"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="loading-image" translatesAutoresizingMaskIntoConstraints="NO" id="18E-cV-OVj">
+                                <rect key="frame" x="166.66666666666666" y="557" width="60" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="8fo-OK-eZd"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="e3O-If-htQ" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="6DI-dU-l7I"/>
+                            <constraint firstItem="18E-cV-OVj" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="163" id="HEY-db-UcI"/>
+                            <constraint firstItem="e3O-If-htQ" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="Xzz-cP-44o"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="18E-cV-OVj" secondAttribute="bottom" constant="163" id="dqS-BV-F7f"/>
+                            <constraint firstItem="18E-cV-OVj" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="u9a-Az-Hgb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="LoaderImageView" destination="18E-cV-OVj" id="lJ5-8M-4Qy"/>
+                        <outlet property="LogoImageView" destination="e3O-If-htQ" id="1Z6-uF-YUY"/>
+                        <outlet property="loaderImageView" destination="18E-cV-OVj" id="oba-mC-Bjo"/>
+                        <outlet property="logoImageView" destination="e3O-If-htQ" id="VJ1-EY-TaR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139.69465648854961" y="91.549295774647888"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="loading-image" width="60" height="60"/>
+        <image name="mova-icon" width="160" height="160"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

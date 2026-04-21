@@ -1,0 +1,56 @@
+{
+  "banner": {
+    "image": "background-image",
+    "title": "Doctor Strange",
+    "genre": "Action • Fantasy",
+    "playTitle": "Play",
+    "listTitle": "My List"
+  },
+  "sections": [
+    {
+      "title": "Top 10 Movies This Week",
+      "items": [
+        { "image": "Image-1", "rating": "4.5" },
+        { "image": "Image-2", "rating": "3" },
+        { "image": "Image-5", "rating": "5" },
+        { "image": "Image-6", "rating": "5" },
+        { "image": "Image-7", "rating": "3" },
+        { "image": "Image-8", "rating": "2" },
+        { "image": "Image-4", "rating": "1" },
+        { "image": "Image-3", "rating": "4" },
+      ]
+    },
+    {
+      "title": "New Releases",
+      "items": [
+        { "image": "Image-6", "rating": "4" },
+        { "image": "Image-7", "rating": "2" },
+        { "image": "Image-8", "rating": "2.5" }
+      ]
+    },
+    {
+      "title": "Top 10 Movies This Week",
+      "items": [
+        { "image": "Image-1", "rating": "4.5" },
+        { "image": "Image-2", "rating": "3" },
+        { "image": "Image-5", "rating": "5" }
+      ]
+    },
+    {
+      "title": "New Releases",
+      "items": [
+        { "image": "Image-6", "rating": "4" },
+        { "image": "Image-7", "rating": "2" },
+        { "image": "Image-8", "rating": "2.5" }
+      ]
+    },
+    {
+      "title": "Top 10 Movies This Week",
+      "items": [
+        { "image": "Image-1", "rating": "4.5" },
+        { "image": "Image-2", "rating": "3" },
+        { "image": "Image-5", "rating": "5" }
+      ]
+    },
+  ]
+}
