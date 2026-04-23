@@ -17,11 +17,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2tu-uY-vOa">
-                        <rect key="frame" x="12" y="12" width="34" height="24"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="40K-NB-rIX">
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Efn-hB-yAW">
+                        <rect key="frame" x="16" y="153.66666666666666" width="118" height="30.333333333333343"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYl-13-hcQ">
-                                <rect key="frame" x="5" y="2" width="24" height="20.333333333333332"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6U-EX-Agc">
+                                <rect key="frame" x="8" y="5" width="102" height="20.333333333333332"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -29,28 +32,28 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="34" id="8U3-iH-6R6"/>
-                            <constraint firstItem="kYl-13-hcQ" firstAttribute="centerY" secondItem="2tu-uY-vOa" secondAttribute="centerY" id="Ye4-Ln-RF1"/>
-                            <constraint firstAttribute="height" constant="24" id="fdP-GU-HCd"/>
-                            <constraint firstItem="kYl-13-hcQ" firstAttribute="centerX" secondItem="2tu-uY-vOa" secondAttribute="centerX" id="mbN-vQ-8kQ"/>
+                            <constraint firstAttribute="trailing" secondItem="O6U-EX-Agc" secondAttribute="trailing" constant="8" id="5v2-7n-imx"/>
+                            <constraint firstItem="O6U-EX-Agc" firstAttribute="top" secondItem="Efn-hB-yAW" secondAttribute="top" constant="5" id="T09-rZ-DgI"/>
+                            <constraint firstItem="O6U-EX-Agc" firstAttribute="leading" secondItem="Efn-hB-yAW" secondAttribute="leading" constant="8" id="aMc-TV-WZk"/>
+                            <constraint firstItem="O6U-EX-Agc" firstAttribute="centerX" secondItem="Efn-hB-yAW" secondAttribute="centerX" id="cXZ-Ly-bOS"/>
+                            <constraint firstItem="O6U-EX-Agc" firstAttribute="centerY" secondItem="Efn-hB-yAW" secondAttribute="centerY" id="kO5-tu-dBm"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="40K-NB-rIX">
-                        <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
-                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="2tu-uY-vOa" firstAttribute="leading" secondItem="OmY-zx-Xoc" secondAttribute="leading" constant="12" id="0ue-2u-lJU"/>
+                    <constraint firstAttribute="bottom" secondItem="Efn-hB-yAW" secondAttribute="bottom" constant="16" id="3GU-Ie-6Op"/>
                     <constraint firstAttribute="trailing" secondItem="40K-NB-rIX" secondAttribute="trailing" id="5IJ-xY-gl3"/>
-                    <constraint firstItem="2tu-uY-vOa" firstAttribute="top" secondItem="OmY-zx-Xoc" secondAttribute="top" constant="12" id="Cyg-Hc-B5c"/>
-                    <constraint firstItem="40K-NB-rIX" firstAttribute="top" secondItem="OmY-zx-Xoc" secondAttribute="top" id="Qb7-9t-r8m"/>
-                    <constraint firstItem="40K-NB-rIX" firstAttribute="leading" secondItem="OmY-zx-Xoc" secondAttribute="leading" id="XsT-HN-K9N"/>
+                    <constraint firstItem="Efn-hB-yAW" firstAttribute="leading" secondItem="OmY-zx-Xoc" secondAttribute="leading" constant="16" id="Ka6-HM-tPG"/>
+                    <constraint firstItem="40K-NB-rIX" firstAttribute="top" secondItem="OmY-zx-Xoc" secondAttribute="top" id="gvu-2D-gNp"/>
+                    <constraint firstAttribute="trailing" secondItem="Efn-hB-yAW" secondAttribute="trailing" constant="16" id="oDA-wX-Eql"/>
+                    <constraint firstItem="40K-NB-rIX" firstAttribute="leading" secondItem="OmY-zx-Xoc" secondAttribute="leading" id="qia-V7-xNi"/>
                     <constraint firstAttribute="bottom" secondItem="40K-NB-rIX" secondAttribute="bottom" id="v2m-BH-WKR"/>
                 </constraints>
             </collectionViewCellContentView>
             <connections>
                 <outlet property="backgroundCellImageView" destination="40K-NB-rIX" id="AXr-Au-sHp"/>
-                <outlet property="ratingLabel" destination="kYl-13-hcQ" id="gJU-vP-cDN"/>
+                <outlet property="nameBackgroundView" destination="Efn-hB-yAW" id="NKs-eq-egh"/>
+                <outlet property="nameLabel" destination="O6U-EX-Agc" id="CT8-dG-b8T"/>
             </connections>
             <point key="canvasLocation" x="-285.49618320610688" y="60.563380281690144"/>
         </collectionViewCell>

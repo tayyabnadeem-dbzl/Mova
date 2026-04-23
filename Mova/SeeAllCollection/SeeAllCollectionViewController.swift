@@ -23,13 +23,7 @@ final class SeeAllCollectionViewController : UIViewController, UICollectionViewD
         setTitleLeft(viewModel.title)
         setupNavbar()
         setupCollectionView()
-        view.backgroundColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [
-            .font: UIFont.systemFont(ofSize: 20, weight: .medium),
-        ]
-        viewModel.onUpdate = { [weak self] in
-            self?.collectionView.reloadData()
-        }
+        bindView()
         viewModel.load()
     }
     
@@ -37,17 +31,17 @@ final class SeeAllCollectionViewController : UIViewController, UICollectionViewD
         super.viewDidLayoutSubviews()
         applyCollectionLayout()
     }
-    
-    @objc func didTapSearch() {
-        print("Search tapped")
-    }
 }
 
+//MARK: - Setup 
 private extension SeeAllCollectionViewController {
     func setupNavbar() {
+        navigationController?.navigationBar.titleTextAttributes = [
+            .font: UIFont.systemFont(ofSize: 20, weight: .medium),
+        ]
+        view.backgroundColor = .white
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "search-dark")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        button.addTarget(self, action: #selector(didTapSearch), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
     }
     
@@ -81,6 +75,7 @@ private extension SeeAllCollectionViewController {
     
     private func setupCollectionView() {
         collectionView.delegate = self
+        // collectionView.delegate = self --> difable data source
         collectionView.dataSource = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(
@@ -106,3 +101,11 @@ extension SeeAllCollectionViewController : UICollectionViewDataSource{
     }
 }
 
+//MARK: - Binding
+private extension SeeAllCollectionViewController {
+    func bindView(){
+        viewModel.onUpdate = { [weak self] in
+            self?.collectionView.reloadData()
+        }
+    }
+}
