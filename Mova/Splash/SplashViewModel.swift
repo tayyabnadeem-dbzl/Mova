@@ -14,9 +14,8 @@ protocol SplashViewModelType {
 
 enum SplashViewModelAction {
     case onboarding
-    case login
+    case authOptions
     case home
-    
 }
 
 enum StorageKeys {
@@ -39,7 +38,7 @@ final class SplashViewModel: SplashViewModelType {
             } else if isLoggedIn {
                 self.onFinish?(.home)
             } else {
-                self.onFinish?(.login)
+                self.onFinish?(.authOptions)
             }
         }
     }

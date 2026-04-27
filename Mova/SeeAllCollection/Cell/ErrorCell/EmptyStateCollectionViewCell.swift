@@ -1,14 +1,6 @@
-//
-//  EmptyStateCell.swift
-//  Mova
-//
-//  Created by Muhammad Tayyab Nadeem on 24/04/2026.
-//
-
-import Foundation
 import UIKit
 
-final class EmptyStateCell: UITableViewCell {
+final class EmptyStateCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Outlets
     @IBOutlet weak var messageLabel: UILabel!
@@ -24,7 +16,6 @@ final class EmptyStateCell: UITableViewCell {
         messageLabel.textAlignment = .center
         messageLabel.textColor = .gray
         messageLabel.font = UIFont(name: "UrbanistRoman-Medium", size: 18)
-        selectionStyle = .none
         backgroundColor = .clear
     }
     

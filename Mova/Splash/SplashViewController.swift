@@ -15,6 +15,7 @@ final class SplashViewController : UIViewController{
     @IBOutlet weak var loaderImageView: UIImageView!
     @IBOutlet weak var logoImageView: UIImageView!
     
+    //MARK: - Properties
     var viewModel: SplashViewModelType!
     
 // MARK: - Lifecycle
@@ -30,10 +31,8 @@ final class SplashViewController : UIViewController{
 private extension SplashViewController {
     func setupUI() {
         view.backgroundColor = .systemBackground
-        
         logoImageView.contentMode = .scaleAspectFit
         loaderImageView.contentMode = .scaleAspectFit
-        
     }
 }
 
@@ -44,7 +43,6 @@ private extension SplashViewController {
             rotation.toValue = Double.pi * 2
             rotation.duration = 1
             rotation.repeatCount = .infinity
-            
             loaderImageView.layer.add(rotation, forKey: "rotation")
         }
 }
@@ -56,8 +54,8 @@ private extension SplashViewController {
             case .onboarding:
                 self?.navigateToOnboarding()
                 
-            case .login:
-                self?.navigateToLogin()
+            case .authOptions:
+                self?.navigateToAuthOptions()
                 
             case .home:
                 self?.navigateToHome()
@@ -72,8 +70,8 @@ private extension SplashViewController {
         navigationController?.setViewControllers([vc], animated: true)
     }
 
-    private func navigateToLogin() {
-        let vc = LoginViewBuilder.build()
+    private func navigateToAuthOptions() {
+        let vc = OptionsSignupViewBuilder.build()
         navigationController?.setViewControllers([vc], animated: true)
     }
 

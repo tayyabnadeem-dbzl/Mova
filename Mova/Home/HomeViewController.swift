@@ -16,7 +16,6 @@ private enum HomeRow: Int, CaseIterable {
 final class HomeViewController : UIViewController, HorizontalCollectionCellControllerDelegate{
     
     //MARK: - Outlets
-    
     @IBOutlet weak var mainStackVIew: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navbarStackView: UIStackView!
@@ -32,14 +31,17 @@ final class HomeViewController : UIViewController, HorizontalCollectionCellContr
     override func viewDidLoad() {
         super.viewDidLoad()
         view.bringSubviewToFront(mainStackVIew)
-//        self.navigationController?.navigationBar.isHidden = true
         setupTableView()
         setupNavbarBlur()
-        
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 }
 
+//MARK: - Setup
 private extension HomeViewController {
     func setupTableView() {
         tableView.dataSource = self
@@ -74,8 +76,10 @@ extension HomeViewController : UITableViewDataSource {
         )
         switch vm {
         case let bannerVM as BackgroundImageCellViewModel:
-            (cell as? BackgroundImageCellController)?.configure(with: bannerVM)
-
+            if let cell = cell as? BackgroundImageCellController {
+                cell.configure(with: bannerVM)
+                cell.delegate = self
+            }
         case let horizontalVM as HorizontalCellViewModel:
             if let cell = cell as? HorizontalCollectionCellController {
                 cell.configure(with: horizontalVM)
@@ -109,12 +113,6 @@ extension HomeViewController : UITableViewDelegate {
     }
 }
 
-private extension HomeViewController {
-    func navigateToLogin() {
-       AppRouter.showLogin()
-   }
-}
-
 extension HomeViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
@@ -131,9 +129,23 @@ extension HomeViewController {
     }
 }
 
-internal extension HomeViewController {
+//MARK: - Actions
+extension HomeViewController {
     func didTapSeeAll(title: String, items: [MovieItem]) {
         let vc = SeeAllCollectionViewBuilder.build(title: title)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+private extension HomeViewController {
+    func navigateToLogin() {
+       AppRouter.showLogin()
+   }
+}
+extension HomeViewController: BackgroundImageCellControllerDelegate {
+
+    func didTapPlay() {
+        let vc = PlayViewBuilder.build(title: "Play")
         navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -7,22 +7,27 @@
 
 import Foundation
 import UIKit
-final class SeeAllCollectionViewCell: UICollectionViewCell {
+final class SeeAllCollectionViewCell: HighlightableCollectionViewCell {
 
-    
-    @IBOutlet weak var ratingLabel: UILabel!
+    //MARK: - Outlets
+    @IBOutlet weak var nameBackgroundView: UIView!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var backgroundCellImageView: UIImageView!
+    
+    //MARK: - Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
     }
 
+    //MARK: - Configure
     func configure(with model: Character) {
-        ratingLabel.text = model.name
+        nameLabel.text = model.name
         backgroundCellImageView.loadImage(from: model.image)
     }
 }
 
+//MARK: - Setup
 private extension SeeAllCollectionViewCell {
 
     func setup() {
@@ -30,7 +35,15 @@ private extension SeeAllCollectionViewCell {
         contentView.clipsToBounds = true
         backgroundCellImageView.contentMode = .scaleAspectFill
         backgroundCellImageView.clipsToBounds = true
-        ratingLabel.font = .systemFont(ofSize: 12, weight: .semibold)
-        ratingLabel.textColor = .white
+        let overlay = UIView()
+        overlay.backgroundColor = UIColor.black.withAlphaComponent(0.10)
+        overlay.translatesAutoresizingMaskIntoConstraints = false
+        backgroundCellImageView.addSubview(overlay)
+        nameLabel.font = UIFont(name: "UrbanistRoman-Bold", size: 12)
+        nameLabel.textColor = .white
+        nameBackgroundView.backgroundColor = UIColor.gray.withAlphaComponent(0.8)
+        nameBackgroundView.layer.cornerRadius = 8
+        nameBackgroundView.clipsToBounds = true
+        nameBackgroundView.layer.masksToBounds = true
     }
 }

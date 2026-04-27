@@ -11,7 +11,6 @@ import UIKit
 final class HomeViewBuilder {
 
     static func build() -> UIViewController {
-
         let storyboard = UIStoryboard(name: "HomeViewController", bundle: nil)
         guard let vc = storyboard.instantiateViewController(
             identifier: "HomeViewController"

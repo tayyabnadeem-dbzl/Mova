@@ -36,6 +36,7 @@ final class SignupViewController : UIViewController, UITextFieldDelegate{
     //MARK: - Properties
     var viewModel: SignupViewModelType!
     private var isChecked = false
+    private var isPasswordVisible = false
     
     //MARK: - Constants
     private enum Constants {
@@ -45,6 +46,9 @@ final class SignupViewController : UIViewController, UITextFieldDelegate{
         static let singninLabel = "Already have an account? Sign in"
         static let orContinueWith = "or continue with"
         static let signinButtonText = "Sign in"
+        static let Email = "Email"
+        static let Signup = "Sign up"
+        static let Password = "Password"
     }
     
     //MARK: - Lifecycle
@@ -60,6 +64,14 @@ final class SignupViewController : UIViewController, UITextFieldDelegate{
         bindViewModel()
         let tapGesture = UITapGestureRecognizer(target: self, action:                 #selector(handleLabelTap(_:)))
         signinLabel.addGestureRecognizer(tapGesture)
+        hidePasswordImageView.isUserInteractionEnabled = true
+        hidePasswordImageView.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(togglePasswordVisibility))
+        )
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        signupButtonView.layer.cornerRadius = signupButtonView.frame.height / 2
     }
     
     @objc private func handleLabelTap(_ gesture: UITapGestureRecognizer) {
@@ -71,22 +83,38 @@ final class SignupViewController : UIViewController, UITextFieldDelegate{
     @objc private func backTapped() {
         navigationController?.popViewController(animated: true)
     }
+    
     @objc private func toggleCheckbox() {
         isChecked.toggle()
         updateCheckboxUI()
     }
+    
     @objc private func didTapEmailView() {
         emailTextField.becomeFirstResponder()
     }
+    
     @objc private func didTapPasswordView() {
         passwordTextField.becomeFirstResponder()
     }
+    
     @objc private func signupButtonTapped() {
         viewModel.signup(
             email: emailTextField.text ?? "",
             password: passwordTextField.text ?? ""
         )
     }
+    @objc private func togglePasswordVisibility() {
+        isPasswordVisible.toggle()
+
+        passwordTextField.isSecureTextEntry = !isPasswordVisible
+
+        let currentText = passwordTextField.text
+        passwordTextField.text = ""
+        passwordTextField.text = currentText
+
+        updatePasswordIcon()
+    }
+    
     func bindViewModel() {
         viewModel.onError = { [weak self] message in
             DispatchQueue.main.async {
@@ -121,7 +149,7 @@ private extension SignupViewController {
     func setupCheckboxButton() {
         checkboxButtonView.setImage(UIImage(named: "checkbox"), for: .normal)
     }
-    private func updateCheckboxUI() {
+    func updateCheckboxUI() {
         let imageName = isChecked ? "checkbox-group" : "checkbox"
         checkboxButtonView.setImage(UIImage(named: imageName), for: .normal)
     }
@@ -138,28 +166,31 @@ private extension SignupViewController {
         passwordTextFieldImageView.image = UIImage(named: "Lock")
         signupBackgroundImageView.contentMode = .scaleAspectFit
         createAccountLabel.text = Constants.SignupPageText
-        createAccountLabel.font = .systemFont(ofSize: 32, weight: .bold)
+        createAccountLabel.font = UIFont(name: "UrbanistRoman-Bold", size: 32)
         createAccountLabel.textColor = UIColor.signupText
-        emailTextField.placeholder = "Email"
-        passwordTextField.placeholder = "Password"
+        emailTextField.placeholder = Constants.Email
+        passwordTextField.placeholder = Constants.Password
         emailTextField.keyboardType = .emailAddress
         emailTextField.autocapitalizationType = .none
         emailTextField.autocorrectionType = .no
         emailTextField.textContentType = .emailAddress
         emailTextField.attributedPlaceholder = NSAttributedString(
-            string: "Email",
+            string: Constants.Email,
             attributes: [.foregroundColor: UIColor.darkGray]
         )
         passwordTextField.attributedPlaceholder = NSAttributedString(
-            string: "Password",
+            string: Constants.Password,
             attributes: [.foregroundColor: UIColor.darkGray]
         )
-        hidePasswordImageView.image = UIImage(named: "hide-icon")
+        hidePasswordImageView.image = UIImage(named: "hide-icon")?.withRenderingMode(.alwaysTemplate)
+        hidePasswordImageView.tintColor = .appRed
         rememberMeLabel.text = Constants.rememberMeText
         signinLabel.text = Constants.singninLabel
         signupLabel.textColor = .lightGray
-        signupLabel.font = .systemFont(ofSize: 15 , weight: .light)
-        rememberMeLabel.font = .systemFont(ofSize: 15)
+        
+        signinLabel.font = UIFont(name: "UrbanistRoman-Light", size: 15)
+        
+        rememberMeLabel.font = UIFont(name: "UrbanistRoman-Medium", size: 15)
         emailView.backgroundColor = UIColor(named: "textfied-color")
         emailTextField.borderStyle = .none
         passwordView.backgroundColor = UIColor(named: "textfied-color")
@@ -172,21 +203,28 @@ private extension SignupViewController {
         hidePasswordImageView.tintColor = .lightGray
         makeViewFocusable(emailView, action: #selector(didTapEmailView))
         makeViewFocusable(passwordView, action: #selector(didTapPasswordView))
-        leftBarView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
-        rightBarView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
+        leftBarView.backgroundColor = UIColor.black.withAlphaComponent(0.09)
+        rightBarView.backgroundColor = UIColor.black.withAlphaComponent(0.09)
         orContinueWithLabel.text = Constants.orContinueWith
         orContinueWithLabel.textColor = UIColor.black.withAlphaComponent(0.75)
-        signupButtonView.setTitle("sign up", for: .normal)
+        orContinueWithLabel.font = UIFont(name: "UrbanistRoman-Regular", size: 18)
+        signupButtonView.setTitle(Constants.Signup, for: .normal)
         signupButtonView.setTitleColor(.white, for: .normal)
-        signupButtonView.backgroundColor = UIColor.buttonRed
+        signupButtonView.backgroundColor = UIColor.appRed
         signupButtonView.clipsToBounds = true
         signupButtonView.layer.cornerRadius = 100
         signupButtonView.configuration?.titleTextAttributesTransformer =
         UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
-            outgoing.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+            outgoing.font = UIFont(name: "UrbanistRoman-Bold", size: 18)
             return outgoing
         }
+        signupButtonView.layer.shadowColor = UIColor.appRed.cgColor
+        signupButtonView.layer.shadowOpacity = 0.35
+        signupButtonView.layer.shadowRadius = 12
+        signupButtonView.layer.shadowOffset = CGSize(width: 0, height: 6)
+        signupButtonView.layer.masksToBounds = false
+        
         configureSocialButton(
             facebookButtonView,
             imageName: "facebook-logo"
@@ -201,12 +239,13 @@ private extension SignupViewController {
         )
     }
     
+    
     func applyEmailFocusedState() {
         emailTextFieldImageView.tintColor = .appRed
         emailView.backgroundColor = UIColor.systemRed.withAlphaComponent(0.08)
         emailView.layer.borderColor = UIColor.red.cgColor
         emailView.layer.borderWidth = 1
-        
+        emailTextField.font = UIFont(name: "UrbanistRoman-SemiBold", size: 16)
     }
     
     func resetEmailState() {
@@ -214,10 +253,11 @@ private extension SignupViewController {
         emailView.layer.borderWidth = 0
         emailView.layer.borderColor = UIColor.clear.cgColor
         emailView.backgroundColor = UIColor(named: "textfied-color")
+        emailTextField.font = UIFont(name: "UrbanistRoman-Light", size: 16)
     }
     
     private func applyPasswordFocusedState() {
-        passwordTextField.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        passwordTextField.font = UIFont(name: "UrbanistRoman-SemiBold", size: 16)
         passwordTextFieldImageView.tintColor = .appRed
         passwordView.backgroundColor = UIColor.systemRed.withAlphaComponent(0.08)
         passwordView.layer.borderColor = UIColor.red.cgColor
@@ -226,7 +266,7 @@ private extension SignupViewController {
     }
     
     private func resetPasswordState() {
-        passwordTextField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        passwordTextField.font = UIFont(name: "UrbanistRoman-Light", size: 16)
         passwordView.layer.borderWidth = 0
         passwordView.layer.borderColor = UIColor.clear.cgColor
         passwordTextFieldImageView.tintColor = .lightGray
@@ -243,6 +283,13 @@ private extension SignupViewController {
             action: #selector(backTapped)
         )
         navigationItem.leftBarButtonItem = backButton
+    }
+    func updatePasswordIcon() {
+        hidePasswordImageView.image = UIImage(named: "hide-icon")?.withRenderingMode(.alwaysTemplate)
+
+        hidePasswordImageView.tintColor = isPasswordVisible
+            ? .lightGray
+            : .appRed
     }
 }
 
@@ -304,7 +351,7 @@ private extension SignupViewController {
         let signupRange = (Constants.singninLabel as NSString).range(of: "Sign in")
         attributedString.addAttributes([
             .foregroundColor: UIColor.red,
-            .font: UIFont.boldSystemFont(ofSize: 15)
+            .font: UIFont(name: "UrbanistRoman-Bold", size: 15),
         ], range: signupRange)
         signinLabel.attributedText = attributedString
     }

@@ -43,7 +43,8 @@ private enum SocialStyles {
 }
 
 final class OptionsSignupViewController : UIViewController{
-     // MARK: - Outlets
+    
+    // MARK: - Outlets
     @IBOutlet weak var OptionsSignupImageView : UIImageView!
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var rightBarView: UIView!
@@ -65,6 +66,7 @@ final class OptionsSignupViewController : UIViewController{
        static let welcomeText = "Let's you in"
         static let signinWithPassword = "Sign in with password"
         static let signupOptionLabel = "Don't have an account? Sign up"
+        static let signup = "Sign up"
     }
     
     //MARK: - Lifecycle
@@ -74,56 +76,56 @@ final class OptionsSignupViewController : UIViewController{
         setupUI()
         setupAttributedLabel()
         SigninButton.addTarget(self, action: #selector(signinButtonTapped), for: .touchUpInside)
-        
         let tapGesture = UITapGestureRecognizer(target: self, action:                 #selector(handleLabelTap(_:)))
         signupOptionLabel.addGestureRecognizer(tapGesture)
-
         bindViewModel()
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        roundSigninButton()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     @objc private func backTapped() {
-        navigationController?.popViewController(animated: true)
+        viewModel.didTapBack()
     }
+    
     @objc func signinButtonTapped(){
         viewModel.didTapLogin()
     }
+    
     @objc func signupClickableLabelTapped(){
         viewModel.didTapSignup()
     }
+    
     @objc private func backButtonTapped(){
         viewModel.didTapBack()
     }
+    
     @objc private func handleLabelTap(_ gesture: UITapGestureRecognizer) {
-
-        if didTapAttributedText(in: signupOptionLabel,
-                                gesture: gesture,
-                                targetText: "Sign up") {
-
-            let vc = SignupViewBuilder.build()
-            navigationController?.pushViewController(vc, animated: true)
-        
+        if didTapAttributedText(in: signupOptionLabel, gesture: gesture, targetText: Constants.signup) {
+        let vc = SignupViewBuilder.build()
+        navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
 
 //MARK: - Actions
 private extension OptionsSignupViewController {
-    
     func setupSignupClickableLabelTap() {
         signupOptionLabel.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(signupClickableLabelTapped))
         signupOptionLabel.addGestureRecognizer(tap)
     }
-    
 }
 
 //MARK: - Setup
@@ -133,13 +135,13 @@ private extension OptionsSignupViewController {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.contentSize.width = scrollView.frame.size.width
         welcomeLabel.text = Constants.welcomeText
-        welcomeLabel.font = .systemFont(ofSize: 45, weight: .bold)
+        welcomeLabel.font = UIFont(name: "UrbanistRoman-Bold", size: 45)
         welcomeLabel.textColor = UIColor.signupText
         OptionsSignupImageView.image = UIImage(named: "options-signup-image")
         OptionsSignupImageView.contentMode = .scaleAspectFit
         setupButtons()
-        leftBarView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
-        rightBarView.backgroundColor = UIColor.black.withAlphaComponent(0.20)
+        leftBarView.backgroundColor = UIColor.black.withAlphaComponent(0.09)
+        rightBarView.backgroundColor = UIColor.black.withAlphaComponent(0.09)
         orLabel.text = "or"
         orLabel.textColor = UIColor.black.withAlphaComponent(0.75)
         signupOptionLabel.text = Constants.signupOptionLabel
@@ -150,11 +152,23 @@ private extension OptionsSignupViewController {
         SigninButton.configuration?.titleTextAttributesTransformer =
         UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
-            outgoing.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-            
+            outgoing.font = UIFont(name: "UrbanistRoman-Bold", size: 16)
             return outgoing
         }
+        SigninButton.layer.shadowColor = UIColor.appRed.cgColor
+        SigninButton.layer.shadowOpacity = 0.35
+        SigninButton.layer.shadowRadius = 12
+        SigninButton.layer.shadowOffset = CGSize(width: 0, height: 6)
+        SigninButton.layer.masksToBounds = false
+        SigninButton.configuration?.background.cornerRadius = SigninButton.bounds.height / 2
     }
+    
+    func roundSigninButton() {
+        let radius = SigninButton.bounds.height / 2
+        SigninButton.layer.cornerRadius = radius
+        SigninButton.layer.masksToBounds = true
+    }
+    
     func setupBackButton() {
         navigationItem.hidesBackButton = true
         let backButton = UIBarButtonItem(
@@ -168,7 +182,7 @@ private extension OptionsSignupViewController {
 }
 
 private extension OptionsSignupViewController {
-    private func setupButtons() {
+    func setupButtons() {
         configureButton(connectWithFacebookButton, with: SocialStyles.facebook)
         configureButton(connectWithGoogleButton, with: SocialStyles.google)
         configureButton(connectWithAppleButton, with: SocialStyles.apple)
@@ -176,7 +190,7 @@ private extension OptionsSignupViewController {
 }
 
 private extension OptionsSignupViewController {
-    private func configureButton(
+    func configureButton(
         _ button: UIButton,
         with style: SocialButtonStyle
     ) {
@@ -189,6 +203,7 @@ private extension OptionsSignupViewController {
         config.baseForegroundColor = style.textColor
         config.background.cornerRadius = 16
         config.background.strokeColor = UIColor.black.withAlphaComponent(0.15)
+        config.background.strokeWidth = 0.5
         button.configuration = config
     }
 }
@@ -211,13 +226,20 @@ private extension OptionsSignupViewController {
 //MARK: - Navigation
 private extension OptionsSignupViewController {
     func navigateToOnboarding() {
-        navigationController?.popViewController(animated: true)
+        if let count = navigationController?.viewControllers.count, count > 1 {
+            navigationController?.popViewController(animated: true)
+        } else {
+            let vc = OnboardingViewBuilder.build()
+            navigationController?.setViewControllers([vc], animated: true)
+        }
     }
+    
     func navigateToSignup() {
         navigationController?.goToSingleInstance(SignupViewController.self, create: {
             SignupViewBuilder.build() as! SignupViewController
         }, animated: true)
     }
+    
     func navigateToLogin() {
         navigationController?.goToSingleInstance(
             LoginViewController.self,
@@ -225,7 +247,8 @@ private extension OptionsSignupViewController {
                 LoginViewBuilder.build() as! LoginViewController
             },
             animated: true
-        )    }
+        )
+    }
 }
 
 private extension OptionsSignupViewController {
@@ -233,10 +256,10 @@ private extension OptionsSignupViewController {
         signupOptionLabel.isUserInteractionEnabled = true
         let attributedString = NSMutableAttributedString(string: Constants.signupOptionLabel)
         attributedString.addAttribute(.foregroundColor, value: UIColor.gray, range: NSRange(location: 0, length: Constants.signupOptionLabel.count))
-        let signupRange = (Constants.signupOptionLabel as NSString).range(of: "Sign up")
+        let signupRange = (Constants.signupOptionLabel as NSString).range(of: Constants.signup)
         attributedString.addAttributes([
             .foregroundColor: UIColor.red,
-            .font: UIFont.boldSystemFont(ofSize: 15)
+            .font: UIFont(name: "UrbanistRoman-Bold", size: 15) ?? .boldSystemFont(ofSize: 15)
         ], range: signupRange)
 
         signupOptionLabel.attributedText = attributedString
@@ -244,56 +267,43 @@ private extension OptionsSignupViewController {
 }
 
 private extension OptionsSignupViewController {
-    private func didTapAttributedText(
+    func didTapAttributedText(
         in label: UILabel,
         gesture: UITapGestureRecognizer,
         targetText: String
     ) -> Bool {
 
         guard let labelText = label.attributedText?.string else { return false }
-
         let nsText = labelText as NSString
         let targetRange = nsText.range(of: targetText)
-
         let layoutManager = NSLayoutManager()
         let textContainer = NSTextContainer(size: label.bounds.size)
         let textStorage = NSTextStorage(attributedString: label.attributedText!)
-
         layoutManager.addTextContainer(textContainer)
         textStorage.addLayoutManager(layoutManager)
-
         textContainer.lineFragmentPadding = 0
         textContainer.maximumNumberOfLines = label.numberOfLines
         textContainer.lineBreakMode = label.lineBreakMode
-
         let location = gesture.location(in: label)
         let index = layoutManager.characterIndex(
             for: location,
             in: textContainer,
             fractionOfDistanceBetweenInsertionPoints: nil
         )
-
         return NSLocationInRange(index, targetRange)
     }
 }
 
 extension UINavigationController {
-
     func goToSingleInstance<T: UIViewController>(
         _ type: T.Type,
         create: () -> T,
         animated: Bool
     ) {
-
         var stack = viewControllers
-
-        // remove existing instance if it exists
         stack.removeAll { $0 is T }
-
-        // append new instance
         let newVC = create()
         stack.append(newVC)
-
         setViewControllers(stack, animated: animated)
     }
 }

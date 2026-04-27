@@ -32,25 +32,22 @@ final class HorizontalCollectionCellController : UITableViewCell, UICollectionVi
     @objc func seeAllButtonTapped() {
         delegate?.didTapSeeAll(title: title, items: items)
     }
-
+    
+    //MARK: - Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
         collectionView.dataSource = self
         collectionView.delegate = self
-        let layout = UICollectionViewLayout()
-        layout.collectionView?.contentInset = UIEdgeInsets(top: .zero, left: 16, bottom: .zero, right: 16)
-        collectionView.register(
-            UINib(nibName: "MovieCollectionViewCell", bundle: nil),
-            forCellWithReuseIdentifier: "MovieCollectionViewCell"
-        )
+        setupCollectionView()
+        setup()
         seeAllButtonView.addTarget(
             self,
             action: #selector(seeAllButtonTapped),
             for: .touchUpInside
         )
-        setup()
     }
     
+    //MARK: - Configure
     func configure(with viewModel: HorizontalCellViewModel) {
         collectionTitleLabel.text = viewModel.title
         items = viewModel.items
@@ -58,18 +55,27 @@ final class HorizontalCollectionCellController : UITableViewCell, UICollectionVi
     }
 }
 
+//MARK: - Setup
 private extension HorizontalCollectionCellController {
 
     func setup() {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        collectionTitleLabel.font = .systemFont(ofSize: 20, weight: .medium)
+        collectionTitleLabel.font = UIFont(name: "UrbanistRoman-SemiBold", size: 20)
         seeAllButtonView.tintColor = .appRed
-        seeAllButtonView.titleLabel?.font = .systemFont(ofSize: 10, weight: .regular)
+        seeAllButtonView.titleLabel?.font = UIFont(name: "Urbanist-Regular", size: 20)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 150, height: 200)
         collectionView.collectionViewLayout = layout
+    }
+    func setupCollectionView() {
+        let layout = UICollectionViewLayout()
+        layout.collectionView?.contentInset = UIEdgeInsets(top: .zero, left: 16, bottom: .zero, right: 16)
+        collectionView.register(
+            UINib(nibName: "MovieCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: "MovieCollectionViewCell"
+        )
     }
 }
 

@@ -20,16 +20,16 @@
                                 <rect key="frame" x="0.0" y="134" width="393" height="718"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="rJq-0y-eo7">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="672.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="704.66666666666663"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="5S4-jK-vLl">
-                                                <rect key="frame" x="24" y="0.0" width="345" height="622.33333333333337"/>
+                                                <rect key="frame" x="24" y="0.0" width="345" height="654.33333333333337"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="kXC-7J-QN8">
-                                                        <rect key="frame" x="0.0" y="0.0" width="345" height="542.33333333333337"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="345" height="574.33333333333337"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="bV0-fw-Bzb">
-                                                                <rect key="frame" x="0.0" y="0.0" width="345" height="542.33333333333337"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="bV0-fw-Bzb">
+                                                                <rect key="frame" x="0.0" y="0.0" width="345" height="574.33333333333337"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="jOO-9i-f7X">
                                                                         <rect key="frame" x="0.0" y="0.0" width="345" height="414"/>
@@ -164,7 +164,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pa2-cz-u03">
-                                                                        <rect key="frame" x="0.0" y="438" width="345" height="60"/>
+                                                                        <rect key="frame" x="0.0" y="454" width="345" height="60"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="60" id="mtK-Nx-uBh"/>
                                                                         </constraints>
@@ -172,7 +172,7 @@
                                                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                                                     </button>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="6fi-Bm-9Ra">
-                                                                        <rect key="frame" x="0.0" y="522" width="345" height="20.333333333333371"/>
+                                                                        <rect key="frame" x="0.0" y="554" width="345" height="20.333333333333371"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J6I-kw-4Ea">
                                                                                 <rect key="frame" x="0.0" y="9.6666666666666288" width="95.333333333333329" height="1"/>
@@ -204,7 +204,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="t19-n4-H6l">
-                                                        <rect key="frame" x="40" y="562.33333333333337" width="265" height="60"/>
+                                                        <rect key="frame" x="40" y="594.33333333333337" width="265" height="60"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZL-oH-5ca">
                                                                 <rect key="frame" x="0.0" y="0.0" width="75" height="60"/>
@@ -235,7 +235,7 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRV-WC-EmG">
-                                                <rect key="frame" x="176" y="652.33333333333337" width="41.333333333333343" height="20.333333333333371"/>
+                                                <rect key="frame" x="176" y="684.33333333333337" width="41.333333333333343" height="20.333333333333371"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>

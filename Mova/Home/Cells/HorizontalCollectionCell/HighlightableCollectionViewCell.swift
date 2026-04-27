@@ -1,5 +1,5 @@
 //
-//  HighlightableCollectionView.swift
+//  HighlightableCollectionViewCell.swift
 //  Mova
 //
 //  Created by Muhammad Tayyab Nadeem on 24/04/2026.
@@ -8,11 +8,6 @@
 import Foundation
 import UIKit
 
-public enum HighlightAnimation {
-    case fade
-    case scale
-    case none
-}
 
 public enum HighlightInteraction {
     case select

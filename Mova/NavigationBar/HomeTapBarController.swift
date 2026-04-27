@@ -9,12 +9,10 @@ import Foundation
 import UIKit
 
 final class HomeTapBarController : UITabBarController {
-    private let logoutTag = 1
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
         tabBar.tintColor = .systemRed
         tabBar.unselectedItemTintColor = .gray
         setupTab()
@@ -28,34 +26,21 @@ final class HomeTapBarController : UITabBarController {
             image: UIImage(named: "home")?.withRenderingMode(.alwaysTemplate),
             selectedImage: UIImage(named: "home")?.withRenderingMode(.alwaysTemplate)
         )
-        let logoutVC = UIViewController()
-        let logoutNav = UINavigationController(rootViewController: logoutVC)
-        logoutNav.tabBarItem = UITabBarItem(
-            title: "Logout",
+        let profileVC = ProfileViewBuilder.build()
+        let profileNav = UINavigationController(rootViewController: profileVC)
+        profileNav.tabBarItem = UITabBarItem(
+            title: "Profile",
             image: UIImage(systemName: "person"),
             selectedImage: UIImage(systemName: "person.fill")
         )
-        logoutNav.tabBarItem.tag = logoutTag
-        viewControllers = [homeNav, logoutNav]
+        viewControllers = [homeNav, profileNav]
         selectedViewController = homeNav
     }
     
      func performLogout() {
-        SessionManager().clear()
+         SessionManager.shared.clear()
         AppRouter.showLogin()
     }
 }
 
-extension HomeTapBarController: UITabBarControllerDelegate {
-    func tabBarController(
-        _ tabBarController: UITabBarController,
-        shouldSelect viewController: UIViewController
-    ) -> Bool {
-        guard viewController.tabBarItem.tag == logoutTag else {
-            return true
-        }
-        
-        performLogout()
-        return false
-    }
-}
+

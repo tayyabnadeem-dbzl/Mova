@@ -15,10 +15,13 @@ struct ButtonStyle {
     let borderColor: UIColor?
 }
 
+protocol BackgroundImageCellControllerDelegate: AnyObject {
+    func didTapPlay()
+}
+
 final class BackgroundImageCellController : UITableViewCell {
 
     //MARK: - Outlets
-
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var playButtonView: UIButton!
@@ -27,6 +30,7 @@ final class BackgroundImageCellController : UITableViewCell {
     
     //MARK: - Properties
     private var gradientLayer: CAGradientLayer?
+    weak var delegate: BackgroundImageCellControllerDelegate?
     
     //MARK: - Lifecylce
     override func awakeFromNib() {
@@ -35,6 +39,10 @@ final class BackgroundImageCellController : UITableViewCell {
         myListButtonView.round()
         addGradient()
         setup()
+        playButtonView.addTarget(self, action: #selector(didTapPlayButton), for: .touchUpInside)
+    }
+    @objc private func didTapPlayButton() {
+        delegate?.didTapPlay()
     }
     
     //MARK: - Configure
@@ -45,23 +53,25 @@ final class BackgroundImageCellController : UITableViewCell {
         playButtonView.setTitle(viewModel.playTitle, for: .normal)
         myListButtonView.setTitle(viewModel.listTitle, for: .normal)
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer?.frame = contentView.bounds
     }
 }
 
+//MARK: - Setup
 private extension BackgroundImageCellController {
     
     func setup() {
         backgroundImageView.contentMode = .scaleAspectFill
         backgroundImageView.clipsToBounds = true
-        titleLabel.font = .systemFont(ofSize: 34, weight: .bold)
+        titleLabel.font = UIFont(name: "UrbanistRoman-Bold", size: 34)
         titleLabel.text = "Dr. Strange"
         titleLabel.textColor = .white
         genreLabel.text = "something, something..."
         genreLabel.textColor = .white
-        genreLabel.font = .systemFont(ofSize: 20, weight: .regular)
+        genreLabel.font = UIFont(name: "UrbanistRoman-Medium", size: 16)
         configureButton(playButtonView, style: ButtonStyle(
             title: "Play",
             imageName: "play-logo",
@@ -78,8 +88,8 @@ private extension BackgroundImageCellController {
         ))
         
     }
+    
     private func addGradient() {
-
         gradientLayer?.removeFromSuperlayer()
         let gradient = CAGradientLayer()
         gradient.colors = [
@@ -96,7 +106,6 @@ private extension BackgroundImageCellController {
 }
 
 private func configureButton(_ button: UIButton, style: ButtonStyle) {
-
     var config = UIButton.Configuration.filled()
     config.title = style.title
     config.image = UIImage(named: style.imageName)
@@ -110,7 +119,7 @@ private func configureButton(_ button: UIButton, style: ButtonStyle) {
     )
     config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
         var outgoing = incoming
-        outgoing.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        outgoing.font = UIFont(name: "UrbanistRoman-Bold", size: 17)
         return outgoing
     }
     config.baseBackgroundColor = style.backgroundColor
@@ -125,6 +134,7 @@ private func configureButton(_ button: UIButton, style: ButtonStyle) {
     button.configuration = config
     button.setNeedsUpdateConfiguration()
 }
+
 extension UIView {
     func round() {
         self.layer.cornerRadius = self.frame.size.height / 2

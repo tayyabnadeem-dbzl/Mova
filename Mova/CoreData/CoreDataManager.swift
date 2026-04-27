@@ -61,6 +61,12 @@ final class CoreDataManager: storeType {
             return []
         }
     }
+    func fetchLoggedInUser() -> User? {
+        guard let email = SessionManager.shared.getUser() else { return nil }
+        let request: NSFetchRequest<User> = User.fetchRequest()
+        request.predicate = NSPredicate(format: "email == %@", email)
+        return try? context.fetch(request).first
+    }
 
 }
 
@@ -79,17 +85,13 @@ final class SessionManager: SessionManaging {
 
     func saveUser(email: String) {
         UserDefaults.standard.set(email, forKey: StorageKeys.loggedInUser)
-        print("Logged in user:", UserDefaults.standard.string(forKey: StorageKeys.loggedInUser) ?? "nil")
     }
 
     func getUser() -> String? {
         UserDefaults.standard.string(forKey: StorageKeys.loggedInUser)
     }
-
+    
     func clear() {
-        print("before clear Logged in user:", UserDefaults.standard.string(forKey: StorageKeys.loggedInUser) ?? "nil")
         UserDefaults.standard.removeObject(forKey: StorageKeys.loggedInUser)
-        print("before clear Logged in user:", UserDefaults.standard.string(forKey: StorageKeys.loggedInUser) ?? "nil")
-
     }
 }

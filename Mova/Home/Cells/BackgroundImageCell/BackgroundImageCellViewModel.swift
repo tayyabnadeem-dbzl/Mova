@@ -24,6 +24,7 @@ final class BackgroundImageCellViewModel : CellViewModel {
     let genre: String
     let playTitle: String
     let listTitle: String
+    
 
     init(banner: Banner) {
         self.imageName = banner.image

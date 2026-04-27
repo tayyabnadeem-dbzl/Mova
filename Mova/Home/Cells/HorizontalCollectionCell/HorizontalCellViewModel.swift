@@ -8,7 +8,6 @@
 import Foundation
 enum HorizontalItem {
     case movie(MovieItem)
-    case character(Character)
 }
 
 final class HorizontalCellViewModel : CellViewModel {

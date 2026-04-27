@@ -6,12 +6,14 @@
 //
 
 import Foundation
-struct PlayCellViewModel: TableCellViewModel {
-    let reuseIdentifier: String = "PlayTableViewCell"
-    
+
+struct PlayTableCellViewModel: CellViewModel, Hashable, Sendable {
+    let id: Int
     let title: String
-    let subtitle: String
     let date: String
+    let episode: String
+    let status: String
     let imageURL: String
-    let tagText: String
+
+    let reuseIdentifier = "PlayTableViewCell"
 }

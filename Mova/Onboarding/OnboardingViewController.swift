@@ -35,20 +35,19 @@ final class OnboardingViewController : UIViewController {
 //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
         bindViewModel()
-        
         startButton.addTarget(self, action: #selector(startButtonTapped), for:.touchUpInside)
     }
 }
 
+//MARK: - Setup
 private extension OnboardingViewController {
     func setupUI() {
         welcomeLabel.text = Constants.welcomeText
         descriptionLabel.text = Constants.descriptionText
-        welcomeLabel.font = .systemFont(ofSize: 40, weight: .bold)
-        descriptionLabel.font = .systemFont(ofSize: 16, weight: .medium)
+        welcomeLabel.font = UIFont(name: "UrbanistRoman-Bold", size: 40)
+        descriptionLabel.font = UIFont(name: "UrbanistRoman-Medium", size: 16)
         welcomeLabel.textColor = .white
         descriptionLabel.textColor = .white
         startButton.setTitle(Constants.getStarted, for: .normal)
@@ -59,8 +58,7 @@ private extension OnboardingViewController {
         startButton.configuration?.titleTextAttributesTransformer =
         UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
-            outgoing.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-            
+            outgoing.font = UIFont(name: "UrbanistRoman-Bold", size: 15)
             return outgoing
         }
        backgroundImageView.contentMode = .scaleAspectFill
@@ -80,11 +78,9 @@ extension OnboardingViewController {
             ]
             gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
             gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-            
             gradientView.layer.addSublayer(gradient)
             gradientLayer = gradient
             gradientLayer?.opacity = 0.9
-            
         } else {
             gradientLayer?.frame = gradientView.bounds
         }
@@ -93,7 +89,6 @@ extension OnboardingViewController {
 
 // MARK: - Binding
 private extension OnboardingViewController {
-    
     func bindViewModel() {
         viewModel.onGetStarted = { [weak self] in
             self?.navigateToOptionSignup()
@@ -102,7 +97,6 @@ private extension OnboardingViewController {
 }
 
 private extension OnboardingViewController {
-    
     func navigateToOptionSignup() {
         let vc = OptionsSignupViewBuilder.build()
         navigationController?.pushViewController(vc, animated: true)

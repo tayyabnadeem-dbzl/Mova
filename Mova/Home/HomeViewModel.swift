@@ -23,6 +23,8 @@ final class HomeViewModel: HomeViewModelType {
     func cellViewModel(at index: Int) -> CellViewModel {
         cellViewModels[index]
     }
+
+
 }
 
 private extension HomeViewModel {
@@ -36,5 +38,4 @@ private extension HomeViewModel {
         }
         self.cellViewModels = cells
     }
-    
 }

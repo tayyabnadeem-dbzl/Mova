@@ -14,12 +14,8 @@ final class OnboardingViewBuilder {
         guard let vc = storyboard.instantiateViewController(withIdentifier: "OnboardingViewController") as? OnboardingViewController else {
             fatalError("OnboardingViewController not found")
         }
-        
         let viewModel = OnboardingViewModel()
         vc.viewModel = viewModel
-        
         return vc
-
     }
-
 }
