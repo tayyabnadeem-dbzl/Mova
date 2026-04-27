@@ -11,14 +11,14 @@ import UIKit
 
 final class SplashViewController : UIViewController{
     
-// MARK: - Outlets
+    // MARK: - Outlets
     @IBOutlet weak var loaderImageView: UIImageView!
     @IBOutlet weak var logoImageView: UIImageView!
     
     //MARK: - Properties
     var viewModel: SplashViewModelType!
     
-// MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -28,6 +28,7 @@ final class SplashViewController : UIViewController{
     }
 }
 
+//MARK: - Setup
 private extension SplashViewController {
     func setupUI() {
         view.backgroundColor = .systemBackground
@@ -37,18 +38,18 @@ private extension SplashViewController {
 }
 
 private extension SplashViewController {
-
-        func startRotation() {
-            let rotation = CABasicAnimation(keyPath: "transform.rotation")
-            rotation.toValue = Double.pi * 2
-            rotation.duration = 1
-            rotation.repeatCount = .infinity
-            loaderImageView.layer.add(rotation, forKey: "rotation")
-        }
+    func startRotation() {
+        let rotation = CABasicAnimation(keyPath: "transform.rotation")
+        rotation.toValue = Double.pi * 2
+        rotation.duration = 1
+        rotation.repeatCount = .infinity
+        loaderImageView.layer.add(rotation, forKey: "rotation")
+    }
 }
 
+//MARK: - binding
 private extension SplashViewController {
-    private func bindViewModel() {
+    func bindViewModel() {
         viewModel.onFinish = { [weak self] action in
             switch action {
             case .onboarding:
@@ -63,8 +64,9 @@ private extension SplashViewController {
         }
     }
 }
+
+//MARK: - Navigation
 private extension SplashViewController {
-    
     private func navigateToOnboarding() {
         let vc = OnboardingViewBuilder.build()
         navigationController?.setViewControllers([vc], animated: true)

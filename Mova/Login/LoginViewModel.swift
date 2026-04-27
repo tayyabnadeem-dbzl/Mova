@@ -16,16 +16,19 @@ protocol LoginViewModelType {
 
 final class LoginViewModel: LoginViewModelType {
 
+    //MARK: - Properties
     var onLoginSuccess: ((String) -> Void)?
     var onError: ((String) -> Void)?
     private let store: storeType
     private let session: SessionManaging
     
+    //MARK: - init
     init(store: storeType, session: SessionManaging) {
         self.store = store
         self.session = session
     }
 
+    //MARK: - Actions
     func login(email: String, password: String) {
         let email = email.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !email.isEmpty, !password.isEmpty else {

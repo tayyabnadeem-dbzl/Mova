@@ -31,6 +31,7 @@ final class SeeAllCollectionViewController : UIViewController, UICollectionViewD
         super.viewDidLayoutSubviews()
         applyCollectionLayout()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -45,6 +46,7 @@ final class SeeAllCollectionViewController : UIViewController, UICollectionViewD
         updateNavigationUI()
         searchTextField.becomeFirstResponder()
     }
+
     @objc private func exitSearch() {
         isSearching = false
         searchTextField.resignFirstResponder()
@@ -52,7 +54,7 @@ final class SeeAllCollectionViewController : UIViewController, UICollectionViewD
         viewModel.updateSearch(query: "")
         updateNavigationUI()
     }
-    
+
     @objc private func searchChanged(_ textField: UITextField) {
         viewModel.updateSearch(query: textField.text ?? "")
     }
@@ -66,7 +68,7 @@ private extension SeeAllCollectionViewController {
         ]
         view.backgroundColor = .white
     }
-    
+
     func applyCollectionLayout() {
         let layout = UICollectionViewFlowLayout()
         let spacing: CGFloat = 8
@@ -108,6 +110,7 @@ private extension SeeAllCollectionViewController {
              forCellWithReuseIdentifier: "EmptyStateCollectionViewCell"
          )
     }
+    
     func setupSearchField() {
         searchTextField.placeholder = "  Search characters"
         searchTextField.backgroundColor = UIColor.systemGray6
@@ -119,6 +122,7 @@ private extension SeeAllCollectionViewController {
         searchTextField.backgroundColor = .textfied
         searchTextField.addTarget(self, action: #selector(searchChanged(_:)), for: .editingChanged)
     }
+    
     func setupSearchButton() {
         let button = UIButton(type: .system)
         button.setImage(
@@ -128,6 +132,7 @@ private extension SeeAllCollectionViewController {
         button.addTarget(self, action: #selector(didTapSearch), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
     }
+    
     func updateNavigationUI() {
         if isSearching {
             navigationItem.titleView = searchTextField

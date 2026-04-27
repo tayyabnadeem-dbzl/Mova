@@ -11,7 +11,7 @@ protocol SeeAllCollectionViewModelType {
     var title: String { get }
     var items: [Character] { get }
     var onUpdate: (() -> Void)? { get set }
-    
+
     func load()
     func updateSearch(query: String)
 }

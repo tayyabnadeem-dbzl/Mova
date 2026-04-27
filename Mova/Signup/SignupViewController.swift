@@ -69,6 +69,7 @@ final class SignupViewController : UIViewController, UITextFieldDelegate{
             UITapGestureRecognizer(target: self, action: #selector(togglePasswordVisibility))
         )
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         signupButtonView.layer.cornerRadius = signupButtonView.frame.height / 2
@@ -105,16 +106,14 @@ final class SignupViewController : UIViewController, UITextFieldDelegate{
     }
     @objc private func togglePasswordVisibility() {
         isPasswordVisible.toggle()
-
         passwordTextField.isSecureTextEntry = !isPasswordVisible
-
         let currentText = passwordTextField.text
         passwordTextField.text = ""
         passwordTextField.text = currentText
-
         updatePasswordIcon()
     }
     
+    //MARK: - binding
     func bindViewModel() {
         viewModel.onError = { [weak self] message in
             DispatchQueue.main.async {
@@ -143,21 +142,20 @@ private extension SignupViewController {
         checkboxButtonView.addTarget(self, action: #selector(toggleCheckbox), for: .touchUpInside)
         signupButtonView.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
     }
-}
-
-private extension SignupViewController {
+    
     func setupCheckboxButton() {
         checkboxButtonView.setImage(UIImage(named: "checkbox"), for: .normal)
     }
+    
     func updateCheckboxUI() {
         let imageName = isChecked ? "checkbox-group" : "checkbox"
         checkboxButtonView.setImage(UIImage(named: imageName), for: .normal)
     }
 }
 
+//MARK: - Setup
 private extension SignupViewController {
     func setupUI() {
-
         scrollView.alwaysBounceHorizontal = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.contentSize.width = scrollView.frame.size.width
@@ -187,9 +185,7 @@ private extension SignupViewController {
         rememberMeLabel.text = Constants.rememberMeText
         signinLabel.text = Constants.singninLabel
         signupLabel.textColor = .lightGray
-        
         signinLabel.font = UIFont(name: "UrbanistRoman-Light", size: 15)
-        
         rememberMeLabel.font = UIFont(name: "UrbanistRoman-Medium", size: 15)
         emailView.backgroundColor = UIColor(named: "textfied-color")
         emailTextField.borderStyle = .none
@@ -224,7 +220,6 @@ private extension SignupViewController {
         signupButtonView.layer.shadowRadius = 12
         signupButtonView.layer.shadowOffset = CGSize(width: 0, height: 6)
         signupButtonView.layer.masksToBounds = false
-        
         configureSocialButton(
             facebookButtonView,
             imageName: "facebook-logo"
@@ -325,7 +320,6 @@ private extension SignupViewController {
 }
 
 extension SignupViewController {
-
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == emailTextField {
             applyEmailFocusedState()

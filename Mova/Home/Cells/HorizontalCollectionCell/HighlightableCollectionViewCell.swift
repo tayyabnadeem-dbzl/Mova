@@ -22,11 +22,9 @@ open class HighlightableCollectionViewCell: UICollectionViewCell {
     open var highlightAlpha: CGFloat = 0.5
     open var highlightAnimation: HighlightAnimation = .fade
     open var highlightAnimationDuration: TimeInterval = 0.2
-
     open var highlightInteraction: HighlightInteraction = .touch {
         didSet { setupHighlightInteraction() }
     }
-
     private var tapGesture: UILongPressGestureRecognizer?
 
     // MARK: - Init

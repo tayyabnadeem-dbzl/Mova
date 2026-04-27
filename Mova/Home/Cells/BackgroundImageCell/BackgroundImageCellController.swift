@@ -86,7 +86,6 @@ private extension BackgroundImageCellController {
             textColor: .white,
             borderColor: .white
         ))
-        
     }
     
     private func addGradient() {

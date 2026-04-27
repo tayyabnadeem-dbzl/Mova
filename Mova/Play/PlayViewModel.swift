@@ -12,7 +12,7 @@ protocol PlayViewModelType {
     var items: [PlayTableCellViewModel] { get }
     var onUpdate: (() -> Void)? { get set }
     var title: String {get}
-    
+
     func load()
     func updateSearch(query: String)
 }
@@ -53,7 +53,7 @@ private extension PlayViewModel {
             handleError(error)
         }
     }
-    
+
     @MainActor
     func handleSuccess(_ characters: [Character]) {
         let mappedItems = characters.map {
@@ -74,10 +74,9 @@ private extension PlayViewModel {
     func handleError(_ error: NetworkError) {
         print("Error:", error)
     }
-    
+
     internal func updateSearch(query: String) {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
-
         if trimmed.isEmpty {
             items = allItems
         } else {
@@ -85,7 +84,6 @@ private extension PlayViewModel {
                 $0.title.localizedCaseInsensitiveContains(trimmed)
             }
         }
-
         onUpdate?()
     }
 }

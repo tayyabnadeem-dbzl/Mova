@@ -25,6 +25,7 @@ enum StorageKeys {
 
 final class SplashViewModel: SplashViewModelType {
     
+    //MARK: - Properties
     var onFinish: ((SplashViewModelAction) -> Void)?
     
     func start() {

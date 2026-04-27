@@ -18,6 +18,7 @@ final class HomeTapBarController : UITabBarController {
         setupTab()
     }
     
+    //MARK: - Setup
     func setupTab() {
         let homeVc = HomeViewBuilder.build()
         let homeNav = UINavigationController(rootViewController: homeVc)

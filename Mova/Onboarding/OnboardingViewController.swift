@@ -96,6 +96,7 @@ private extension OnboardingViewController {
     }
 }
 
+//MARK: - Navigation
 private extension OnboardingViewController {
     func navigateToOptionSignup() {
         let vc = OptionsSignupViewBuilder.build()

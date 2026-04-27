@@ -13,7 +13,9 @@ protocol OnboardingViewModelType {
 }
 
 final class OnboardingViewModel: OnboardingViewModelType {
+    //MARK: - Properties
     var onGetStarted: (() -> Void)?
+    
     func didTapGetStarted() {
         UserDefaults.standard.set(true, forKey: StorageKeys.hasSeenOnboarding)
         onGetStarted?()

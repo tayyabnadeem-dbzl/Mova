@@ -16,6 +16,8 @@ struct BackgroundImage {
 }
 
 final class BackgroundImageCellViewModel : CellViewModel {
+    
+    //MARK: - Properties
     var reuseIdentifier: String {
         "BackgroundImageCellController"
     }
@@ -25,7 +27,7 @@ final class BackgroundImageCellViewModel : CellViewModel {
     let playTitle: String
     let listTitle: String
     
-
+    //MARK: - init
     init(banner: Banner) {
         self.imageName = banner.image
         self.title = banner.title

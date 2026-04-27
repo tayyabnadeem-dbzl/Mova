@@ -57,7 +57,6 @@ final class HorizontalCollectionCellController : UITableViewCell, UICollectionVi
 
 //MARK: - Setup
 private extension HorizontalCollectionCellController {
-
     func setup() {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
@@ -69,6 +68,7 @@ private extension HorizontalCollectionCellController {
         layout.itemSize = CGSize(width: 150, height: 200)
         collectionView.collectionViewLayout = layout
     }
+    
     func setupCollectionView() {
         let layout = UICollectionViewLayout()
         layout.collectionView?.contentInset = UIEdgeInsets(top: .zero, left: 16, bottom: .zero, right: 16)
@@ -80,7 +80,6 @@ private extension HorizontalCollectionCellController {
 }
 
 extension HorizontalCollectionCellController: UICollectionViewDataSource {
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         items.count
     }

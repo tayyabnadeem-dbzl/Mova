@@ -11,13 +11,15 @@ enum HorizontalItem {
 }
 
 final class HorizontalCellViewModel : CellViewModel {
+    
+    //MARK: - Properties
     var reuseIdentifier: String {
         "HorizontalCollectionCellController"
     }
- 
     let title: String
     let items: [MovieItem]
 
+    //MARK: - init
     init(section: MovieSection) {
         self.title = section.title
         self.items = section.items
